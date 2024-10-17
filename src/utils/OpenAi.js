@@ -1,25 +1,95 @@
-export const sendMsgToAI = async (msg) => {
-  const API_URL = "https://api.openai.com/v1/completions";
+import React from 'react';
 
-  const requestOptions = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${process.env.REACT_APP_GPT_KEY}`,
-    },
-    body: JSON.stringify({
-      model: "text-davinci-003",
-      prompt: msg,
-      temperature: 0.2,
-      max_tokens: 2048,
-      n: 1,
-      stop: null,
-    }),
-  };
+export const sendMsgToAI = async (msg) => {
   try {
-    const response = await (await fetch(API_URL, requestOptions)).json();
-    return response?.choices[0]?.text;
+    // Fetch the scientific name and description from the custom API
+    const apiResponse = await fetch(`http://localhost:5000/api/scientific-name?query=${encodeURIComponent(msg)}`);
+    const apiData = await apiResponse.json();
+
+    // Extract scientific name and description from API response
+    const scientificName = apiData.scientificName;
+    const description = apiData.description;
+
+    // Fetch the herb data from the local JSON file
+    const response = await fetch('/herb_data.json');
+    const data = await response.json();
+
+    // Check if the herb exists in the JSON data using the scientific name
+    const herb = data[scientificName];
+
+    // Fetch the image from the custom API
+    const imageResponse = await fetch(`http://localhost:5000/api/images?query=${encodeURIComponent(msg)}`);
+    const imageData = await imageResponse.json();
+    const imageUrl = imageData.imageUrl;
+
+    // Return JSX including the image and herb details
+    return (
+      <div>
+        <h3>Herb Details</h3>
+        <table style={{ borderCollapse: 'collapse', width: '100%' }}>
+          <thead>
+            <tr>
+              <th style={{ border: '1px solid black', padding: '5px' }}>Property</th>
+              <th style={{ border: '1px solid black', padding: '5px' }}>Details</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style={{ border: '1px solid black', padding: '5px' }}>Image</td>
+              <td style={{ border: '1px solid black', padding: '5px' }}>
+                {imageUrl ? (
+                  <img src={imageUrl} alt={msg} style={{ width: '300px', height: 'auto' }} />
+                ) : (
+                  <p>No image available</p>
+                )}
+              </td>
+            </tr>
+            <tr>
+              <td style={{ border: '1px solid black', padding: '5px' }}>Scientific Name</td>
+              <td style={{ border: '1px solid black', padding: '5px' }}>{herb['Scientific Name']}</td>
+            </tr>
+            <tr>
+              <td style={{ border: '1px solid black', padding: '5px' }}>Genus</td>
+              <td style={{ border: '1px solid black', padding: '5px' }}>{herb.Genus}</td>
+            </tr>
+            <tr>
+              <td style={{ border: '1px solid black', padding: '5px' }}>Species</td>
+              <td style={{ border: '1px solid black', padding: '5px' }}>{herb.Species}</td>
+            </tr>
+            <tr>
+              <td style={{ border: '1px solid black', padding: '5px' }}>Family</td>
+              <td style={{ border: '1px solid black', padding: '5px' }}>{herb.Family}</td>
+            </tr>
+            <tr>
+              <td style={{ border: '1px solid black', padding: '5px' }}>Phytochemicals</td>
+              <td style={{ border: '1px solid black', padding: '5px' }}>{herb.Phytochemicals.join(', ')}</td>
+            </tr>
+            <tr>
+              <td style={{ border: '1px solid black', padding: '5px' }}>Ailments Cured</td>
+              <td style={{ border: '1px solid black', padding: '5px' }}>{herb['Ailments cured'].join(', ')}</td>
+            </tr>
+            <tr>
+              <td style={{ border: '1px solid black', padding: '5px' }}>Plant Parts and Method of Use</td>
+              <td style={{ border: '1px solid black', padding: '5px' }}>{herb['Plant parts and method of its use']}</td>
+            </tr>
+            <tr>
+              <td style={{ border: '1px solid black', padding: '5px' }}>Vernacular Names</td>
+              <td style={{ border: '1px solid black', padding: '5px' }}>{herb['Vernacular name'].join(', ')}</td>
+            </tr>
+            <tr>
+              <td style={{ border: '1px solid black', padding: '5px' }}>Statewise Availability</td>
+              <td style={{ border: '1px solid black', padding: '5px' }}>{herb['Statewise availability'].join(', ')}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        {/* Display the description below the table in a paragraph */}
+        <h3>Description</h3>
+        <p style={{ whiteSpace: 'pre-line', marginTop: '10px' }}>{description}</p>
+      </div>
+    );
   } catch (error) {
     console.log(error);
+    return <p>Error fetching herb data.</p>;
   }
 };

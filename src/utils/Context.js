@@ -8,7 +8,7 @@ const AppContext = ({ children }) => {
   const [chatValue, setChatValue] = useState("");
   const [message, setMessage] = useState([
     {
-      text: "Hi, I'm ChatGPT, a powerful language model created by OpenAI. My primary function is to assist users in generating human-like text based on the prompts and questions I receive. I have been trained on a diverse range of internet text up until September 2021, so I can provide information, answer questions, engage in conversations, offer suggestions, and more on a wide array of topics. Please feel free to ask me anything or let me know how I can assist you today!",
+      text: "Welcome to the Herbal Knowledge Base, your go-to resource for information on herbs and their healing properties. Explore the benefits of various herbs, their traditional uses, and how they support overall wellness. Dive in and discover nature's remedies!",
       isBot: true,
     },
   ]);

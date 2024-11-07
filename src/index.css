@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Default scrollbar styles */
 .scroll::-webkit-scrollbar {
   width: 7px; /* width of the entire scrollbar */
 }
@@ -13,4 +14,25 @@
 .scroll::-webkit-scrollbar-thumb {
   background-color: rgb(70, 70, 70); /* color of the scroll thumb */
   border-radius: 8px; /* roundness of the scroll thumb */
+}
+
+/* Mobile view (screen width <= 640px) */
+@media (max-width: 640px) {
+  /* Scrollbar styles for mobile */
+  .scroll::-webkit-scrollbar-track {
+    background: #ffffff; /* white background for the scrollbar track */
+  }
+
+  .scroll::-webkit-scrollbar-thumb {
+    background-color: #000000; /* black color for the scroll thumb */
+  }
+
+  /* Text and background adjustments for mobile */
+  .mobile-text {
+    color: #000000; /* black text for readability */
+  }
+
+  .mobile-background {
+    background-color: #ffffff; /* white background */
+  }
 }

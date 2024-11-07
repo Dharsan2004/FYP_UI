@@ -4,31 +4,33 @@ import { FiUser, FiMessageSquare } from "react-icons/fi";
 import { SlOptions } from "react-icons/sl";
 import { MdClose } from "react-icons/md";
 import { ContextApp } from "../utils/Context";
+
 function Mobile() {
   const { Mobile, setMobile, handleQuery } = useContext(ContextApp);
   return (
-    <div className="absolute left-0 top-0 w-full z-50  bg-black/40 flex justify-between items-start">
+    <div className="absolute left-0 top-0 w-full z-50 bg-black/40 flex justify-between items-start">
       <div
         className={
           Mobile
-            ? "h-screen bg-gray-900 w-[300px]  flex items-center justify-between p-2 text-white flex-col translate-x-0"
+            ? "h-screen bg-white w-[300px] flex items-center justify-between p-2 text-black flex-col translate-x-0"
             : "hidden"
         }
       >
         <div className="flex items-start justify-between w-full">
           <span
-            className="border border-gray-600  rounded w-full py-2 text-xs flex gap-1 items-center justify-center cursor-pointer "
+            className="border border-gray-300 rounded w-full py-2 text-xs flex gap-1 items-center justify-center cursor-pointer bg-white hover:bg-gray-100 transition-all duration-300"
             onClick={() => window.location.reload()}
           >
             <AiOutlinePlus fontSize={18} />
             New Chat
           </span>
         </div>
-        {/* middle section  */}
+
+        {/* middle section */}
         <div className="h-[80%] w-full p-2 flex items-start justify-start flex-col overflow-hidden overflow-y-auto text-sm scroll my-2">
-          {/* msg  */}
+          {/* msg */}
           <span
-            className="rounded w-full py-3 px-2 text-xs my-2 flex gap-1 items-center justify-between cursor-pointer hover:bg-gray-800 transition-all duration-300 overflow-hidden truncate whitespace-nowrap"
+            className="rounded w-full py-3 px-2 text-xs my-2 flex gap-1 items-center justify-between cursor-pointer hover:bg-gray-200 transition-all duration-300 overflow-hidden truncate whitespace-nowrap text-black"
             value={"What is Programming?"}
             onClick={handleQuery}
           >
@@ -38,7 +40,7 @@ function Mobile() {
             </span>
           </span>
           <span
-            className="rounded w-full py-3 px-2 text-xs my-2 flex gap-2 items-center justify-between cursor-pointer hover:bg-gray-800 transition-all duration-300 overflow-hidden truncate whitespace-nowrap "
+            className="rounded w-full py-3 px-2 text-xs my-2 flex gap-2 items-center justify-between cursor-pointer hover:bg-gray-200 transition-all duration-300 overflow-hidden truncate whitespace-nowrap text-black"
             value={"How to use an API?"}
             onClick={handleQuery}
           >
@@ -48,9 +50,10 @@ function Mobile() {
             </span>
           </span>
         </div>
-        {/* bottom section  */}
-        <div className="w-full border-t border-gray-600 flex flex-col gap-2 items-center justify-center p-2">
-          <span className="rounded w-full py-2 px-2 text-xs flex gap-1 items-center justify-between cursor-pointer hover:bg-gray-800 transition-all duration-300">
+
+        {/* bottom section */}
+        <div className="w-full border-t border-gray-300 flex flex-col gap-2 items-center justify-center p-2">
+          <span className="rounded w-full py-2 px-2 text-xs flex gap-1 items-center justify-between cursor-pointer hover:bg-gray-200 transition-all duration-300 text-black">
             <span className="flex gap-1 items-center justify-center text-sm">
               <FiUser />
               Upgrade to Plus
@@ -59,7 +62,7 @@ function Mobile() {
               NEW
             </span>
           </span>
-          <span className="rounded w-full py-2 px-2 text-xs flex gap-1 items-center justify-between cursor-pointer hover:bg-gray-800 transition-all duration-300">
+          <span className="rounded w-full py-2 px-2 text-xs flex gap-1 items-center justify-between cursor-pointer hover:bg-gray-200 transition-all duration-300 text-black">
             <span className="flex gap-2 items-center justify-center text-sm font-bold">
               <img
                 src="/user.jpeg"
@@ -68,7 +71,7 @@ function Mobile() {
               />
               User
             </span>
-            <span className="rounded-md  px-1.5 py-0.5 text-xs font-medium uppercase text-gray-500">
+            <span className="rounded-md px-1.5 py-0.5 text-xs font-medium uppercase text-gray-500">
               <SlOptions />
             </span>
           </span>
@@ -76,7 +79,7 @@ function Mobile() {
       </div>
       {Mobile && (
         <span
-          className="border border-gray-600 text-white m-2 rounded px-3 py-[9px] flex items-center justify-center cursor-pointer"
+          className="border border-gray-300 text-black m-2 rounded px-3 py-[9px] flex items-center justify-center cursor-pointer"
           title="Close sidebar"
           onClick={() => setMobile(!Mobile)}
         >

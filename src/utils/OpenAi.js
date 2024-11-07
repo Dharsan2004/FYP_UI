@@ -3,8 +3,8 @@ import React from 'react';
 export const sendMsgToAI = async (msg) => {
   try {
     // Fetch the scientific name and description from the custom API
-   const apiResponse = await fetch(`http://localhost:5000/api/scientific-name?query=${encodeURIComponent(msg)}`);
-  // const apiResponse = await fetch(`https://fyp-backend-cg3s.onrender.com/api/scientific-name?query=${encodeURIComponent(msg)}`);
+   ///const apiResponse = await fetch(`http://localhost:5000/api/scientific-name?query=${encodeURIComponent(msg)}`);
+   const apiResponse = await fetch(`https://fyp-backend-cg3s.onrender.com/api/scientific-name?query=${encodeURIComponent(msg)}`);
     const apiData = await apiResponse.json();
 
     // Extract scientific name and description from API response
@@ -20,9 +20,9 @@ export const sendMsgToAI = async (msg) => {
     const herb = data[scientificName];
 
     // Fetch the image from the custom API
-    const imageResponse = await fetch(`http://localhost:5000/api/images?query=${encodeURIComponent(msg)}`);
+    //const imageResponse = await fetch(`http://localhost:5000/api/images?query=${encodeURIComponent(msg)}`);
 
-  //  const imageResponse = await fetch(`https://fyp-backend-cg3s.onrender.com/api/images?query=${encodeURIComponent(msg)}`);
+    const imageResponse = await fetch(`https://fyp-backend-cg3s.onrender.com/api/images?query=${encodeURIComponent(msg)}`);
     const imageData = await imageResponse.json();
     const imageUrl = imageData.imageUrl;
 
